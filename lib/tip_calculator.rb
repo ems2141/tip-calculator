@@ -7,9 +7,19 @@ class TipCalculator
 
   def calculate
     results = {}
-    if @staff["id"] == @sales["server_id"]
-      tip_value = @sales["tip"]
-      results[@staff["first_name"] + " " + @staff["last_name"]] = "$%.2f" % (tip_value/100.0)
+    @staff.each do |staff|
+      @sales.each do |sale|
+        if staff["id"] == sale["server_id"]
+          tip_value = sale["tip"]
+          if results[staff["first_name"] + " " + staff["last_name"]].nil?
+            results[staff["first_name"] + " " + staff["last_name"]] = "$%.2f" % (tip_value/100.0)
+          else
+            (results[staff["first_name"] + " " + staff["last_name"]].gsub("$", "").to_f*100) + tip_value
+            results[staff["first_name"] + " " + staff["last_name"]] = "$%.2f" % (((results[staff["first_name"] + " " + staff["last_name"]].gsub("$", "").to_f*100) + tip_value)/100)
+            #+= "$%.2f" % (tip_value/100.0)
+          end
+        end
+      end
     end
     results
   end
