@@ -16,7 +16,6 @@ class TipCalculator
           else
             (results[staff["first_name"] + " " + staff["last_name"]].gsub("$", "").to_f*100) + tip_value
             results[staff["first_name"] + " " + staff["last_name"]] = "$%.2f" % (((results[staff["first_name"] + " " + staff["last_name"]].gsub("$", "").to_f*100) + tip_value)/100)
-            #+= "$%.2f" % (tip_value/100.0)
           end
         end
       end
